@@ -1,72 +1,67 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import axios from 'axios';
 import './Record.css'
 
 export const Record=()=> {
-  const [recordvalue, setRecordvalue]= useState({
-    name:'',
-    alias:'',
-    email:'',
-    password:'',
-    department:'',
-    municipality:'',
-    address:'',
-    phone:'',
-    photo: ''
-  });
+  const [name, setName] = useState("");
+  const [alias, setAlias] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [department, setDepartment] = useState("");
+  const [municipality, setMunicipality] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [photo, setPhoto] = useState();
 
-  const handleSubmit= async()=>{
-    const recordFormData = new FormData();
-    recordFormData.append("name", recordvalue.name)
-    recordFormData.append("alias", recordvalue.alias)
-    recordFormData.append("email", recordvalue.email)
-    recordFormData.append("password", recordvalue.password)
-    recordFormData.append("department", recordvalue.department)
-    recordFormData.append("municipality", recordvalue.municipality)
-    recordFormData.append("address", recordvalue.address)
-    recordFormData.append("phone", recordvalue.phone)
-    recordFormData.append("photo", recordvalue.photo)
-    
-    try {
-      const response = await axios({
-        method: "post",
-        url:'https://backend-fullmarket-py.herokuapp.com/createuser',
-        data:recordFormData,
-        headers:{"Content-Type": "multipart/from-data"},
-      }).then(function (response){
-        console.log(response);
-      }).catch(function (error){
-        console.log(error);
-      });
-    } catch(error){
-      console.log(error);
-    }
-  }
+  var formData = new FormData();
+
+const HandleSubmit= async (e)=>{
+
+  console.log(name);
+  console.log(alias);
+  console.log(email);
+  console.log(password);
+  console.log(department);
+  console.log(municipality);
+  console.log(address);
+  console.log(phone);
+  console.log(photo);
+
+
+  formData.append("name", name)
+  formData.append("alias", alias)
+  formData.append("email", email)
+  formData.append("password", password)
+  formData.append("department", department)
+  formData.append("municipality", municipality)
+  formData.append("address", address)
+  formData.append("phone", phone)
+  formData.append("photo", photo)  
   
-  const handleChange= (event)=>{
-    setRecordvalue({
-      ...recordvalue,
-      [event.target.name]: event.target.value
-    });
-  }
-
-    
+  console.log(formData);
+  axios.post('http://127.0.0.1:5000/createuser', formData).then((res => {
+    console.log(res);
+  })).catch((err => {
+    console.log(err);
+  }))
+  e.preventDefault()
+}
   return (
-    <form onSubmit={handleSubmit} className="record" >
+    <form onSubmit={HandleSubmit} className="record" >
       <p>RECORD USERS</p>
       <div className='files'>
         <div className='filesOne'>  
-          <input type="name" name='name' placeholder='enter your name' value={recordvalue.name} onChange={handleChange} ></input>
-          <input type="alias" name='alias' placeholder='enter your alias' value={recordvalue.alias} onChange={handleChange}></input>
-          <input type="email" name='email' placeholder='enter your email'value={recordvalue.email} onChange={handleChange}></input>
-          <input type="password" name='password' placeholder='entert your password'value={recordvalue.password} onChange={handleChange}></input>
+          <input type="name" name='name' value={name} onChange={(e) => setName(e.target.value)} placeholder='enter your name'></input>
+          <input type="alias" name='alias' value={alias} onChange={(e) => setAlias(e.target.value)} placeholder='enter your alias' ></input>
+          <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email'></input>
+          <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='entert your password'></input>
         </div>
         <div className='filesTwo'>
-        <input type="department" name='department' placeholder='enter your departament'value={recordvalue.department} onChange={handleChange}></input>
-          <input type="municipality" name='municipality' placeholder='enter your municipality'value={recordvalue.municipality} onChange={handleChange}></input>
-          <input type="address" name='address' placeholder='enter your address'value={recordvalue.address} onChange={handleChange}></input>
-          <input type="phone" name='phone'placeholder='entert your phone'value={recordvalue.phone} onChange={handleChange}></input>
-          <input type="photo" name='photo' placeholder='enter your profile picture'value={recordvalue.photo} onChange={handleChange}></input>
+        <input type="department" name='department' value={department} onChange={(e) => setDepartment(e.target.value)} placeholder='enter your departament'></input>
+          <input type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'></input>
+          <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address'></input>
+          <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone'></input>
+          <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture'></input> *
         </div>
       </div>
        <button type="submit">Apply</button>
