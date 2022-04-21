@@ -16,18 +16,6 @@ export const Record=()=> {
   var formData = new FormData();
 
 const HandleSubmit= async (e)=>{
-
-  console.log(name);
-  console.log(alias);
-  console.log(email);
-  console.log(password);
-  console.log(department);
-  console.log(municipality);
-  console.log(address);
-  console.log(phone);
-  console.log(photo);
-
-
   formData.append("name", name)
   formData.append("alias", alias)
   formData.append("email", email)
@@ -37,9 +25,9 @@ const HandleSubmit= async (e)=>{
   formData.append("address", address)
   formData.append("phone", phone)
   formData.append("photo", photo)  
-  
+
   console.log(formData);
-  axios.post('http://127.0.0.1:5000/createuser', formData).then((res => {
+  axios.post('https://fullmarket-provitional-backend.herokuapp.com/createuser', formData).then((res => {
     console.log(res);
   })).catch((err => {
     console.log(err);
