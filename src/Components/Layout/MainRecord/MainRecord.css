@@ -1,0 +1,5 @@
+.mainRecord{
+    display: grid;
+    grid-template-columns: 50% 40%;
+    column-gap: 5%;
+}

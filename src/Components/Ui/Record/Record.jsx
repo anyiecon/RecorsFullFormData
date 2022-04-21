@@ -3,7 +3,6 @@ import axios from 'axios';
 import './Record.css'
 
 export const Record=()=> {
-  //const URL= 'https://backend-fullmarket-py.herokuapp.com/createuser'
   const [recordvalue, setRecordvalue]= useState({
     name:'',
     alias:'',
@@ -34,7 +33,11 @@ export const Record=()=> {
         url:'https://backend-fullmarket-py.herokuapp.com/createuser',
         data:recordFormData,
         headers:{"Content-Type": "multipart/from-data"},
-      });console.log(response);
+      }).then(function (response){
+        console.log(response);
+      }).catch(function (error){
+        console.log(error);
+      });
     } catch(error){
       console.log(error);
     }

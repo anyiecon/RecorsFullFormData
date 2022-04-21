@@ -1,8 +1,9 @@
-import { Record } from "./Components/Ui/Record/Record";
+import { MainRecord } from "./Components/Layout/MainRecord/MainRecord";
+
 function App() {
   return (
     <div className="App">
-      <Record/>
+      <MainRecord/>
     </div>
   );
 }
