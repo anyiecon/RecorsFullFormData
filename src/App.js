@@ -1,4 +1,4 @@
-import { Record } from "./Components/Layout/Record";
+import { Record } from "./Components/Ui/Record/Record";
 function App() {
   return (
     <div className="App">
