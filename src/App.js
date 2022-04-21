@@ -1,5 +1,5 @@
-
 import { HomeRecord } from "./Components/Page/HomeRecord";
+
 
 function App() {
   return (
