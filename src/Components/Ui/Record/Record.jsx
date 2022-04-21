@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState} from 'react'
 import axios from 'axios';
 import './Record.css'
 
@@ -26,7 +26,6 @@ const HandleSubmit= async (e)=>{
   formData.append("phone", phone)
   formData.append("photo", photo)  
 
-  console.log(formData);
   axios.post('https://fullmarket-provitional-backend.herokuapp.com/createuser', formData).then((res => {
     console.log(res);
   })).catch((err => {
@@ -49,7 +48,7 @@ const HandleSubmit= async (e)=>{
           <input type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'></input>
           <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address'></input>
           <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone'></input>
-          <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture'></input> *
+          <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture'></input> 
         </div>
       </div>
        <button type="submit">Apply</button>
