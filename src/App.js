@@ -1,9 +1,10 @@
-import { MainRecord } from "./Components/Layout/MainRecord/MainRecord";
+
+import { HomeRecord } from "./Components/Page/HomeRecord";
 
 function App() {
   return (
     <div className="App">
-      <MainRecord/>
+      <HomeRecord/>
     </div>
   );
 }
