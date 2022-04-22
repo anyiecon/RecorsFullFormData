@@ -64,7 +64,7 @@ const handleCharacterName=()=>{
   }
 }
 const handleCharacterAlias=()=>{
-  let validationAlias= /^[A-Za-z]{3,10}$/
+  let validationAlias= /^[A-Za-z0-9]{3,10}$/
   let parrafo
   if(alias.match(validationAlias)){
     parrafo="Información correcta"
@@ -80,8 +80,9 @@ const handleCharacterPassword=()=>{
   if(password.match(validationPassword)){
     parrafo="Información correcta"
     setMsgPassword(parrafo)
+     
   }else{
-    parrafo="Información incorrecta, desbes añadir letras y numeros, su contraseña debe ser minimo de 7 letras,maximo 10 letras"
+    parrafo ="Información incorrecta, desbes añadir letras y numeros, su contraseña debe ser minimo de 7 letras y/o numeros,maximo 10 letras  y/o numeros"
     setMsgPassword(parrafo)
   }
 }
@@ -109,21 +110,22 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
 //VALIDACIÓN DE CARACTERES Y CHECK
    const [terminos , cambiarTerminos]=useState(false);
    const [msgCheck , setMsgCheck] =useState();
+
    const handleTerminos=(e)=>{
      cambiarTerminos(e.target.checked)
      let parrafo
-     if(terminos == false){
+     if(terminos === false){
        console.log("Registro completo");
        parrafo="Registro completo"
        setMsgCheck(parrafo)
      }
      else{
-       console.log("Debes aceptar los termino y condiciones para  lpoder registrate");
        parrafo="Debes aceptar los termino y condiciones para  lpoder registrate"
        setMsgCheck(parrafo)
        
      }
    }
+
   
 
   return (
@@ -132,13 +134,13 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
       <div className='files'>
         <div className='filesOne'>  
           
-          <input type="name" name='name' value={name} onChange={(e) => setName(e.target.value)} placeholder='enter your name' onKeyUp={handleCharacterName}></input>
+          <input type="name" name='name' value={name} onChange={(e) => setName(e.target.value)} placeholder='enter your name' onKeyUp={handleCharacterName} required></input>
           <p className='alertIcorrect'>{msgName}</p>
-          <input type="alias" name='alias' value={alias} onChange={(e) => setAlias(e.target.value)} placeholder='enter your alias' onKeyUp={handleCharacterAlias} ></input>
+          <input type="alias" name='alias' value={alias} onChange={(e) => setAlias(e.target.value)} placeholder='enter your alias' onKeyUp={handleCharacterAlias} required></input>
           <p className='alertIcorrect'>{msgAlias}</p>
-          <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email' onKeyUp={handleCharacterEmail} ></input>
+          <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email' onKeyUp={handleCharacterEmail} required></input>
           <p className='alertIcorrect'>{msgEmail}</p>
-          <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='enter your password' onKeyUp={handleCharacterPassword}></input>
+          <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='enter your password' onKeyUp={handleCharacterPassword} required></input>
           <p className='alertIcorrect'>{msgPassword}</p>
         </div>
         <div className='filesTwo'>
@@ -155,13 +157,13 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
                     return <option key={index} value={Depart.ciudades}>{Depart.ciudades} </option>
                   })}
           </select>
-          <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address'></input>
-          <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone' onKeyUp={handleCharacterPhone}></input>
+          <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address' required></input>
+          <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone' onKeyUp={handleCharacterPhone} required></input>
           <p className='alertIcorrect'>{msgPhone}</p>
-          <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture'></input> 
+          <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture' required></input> 
         </div>
       </div>
-      <label><input type="checkbox" name='terminos' id='terminos' checked={terminos} onClick={handleTerminos}></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
+      <label><input type="checkbox" name='terminos' id='terminos' checked={terminos} onClick={handleTerminos} ></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
       <p className='alertIcorrect'>{msgCheck}</p>
        <button type="submit" >Registrarse</button>
     </form>
