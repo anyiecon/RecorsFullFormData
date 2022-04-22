@@ -13,21 +13,16 @@ export const Record=()=> {
   const [phone, setPhone] = useState("");
   const [photo, setPhoto] = useState();
 
+  //State Character
+  const[msgEmail, setMsgEmail]=useState("")
+  const[msgName, setMsgName]=useState("")
+  const[msgAlias, setMsgAlias]=useState("")
+  const[msgPassword, setMsgPassword]=useState("")
+  const[msgPhone, setMsgPhone]=useState("")
+
   var formData = new FormData();
 
 const HandleSubmit= async (e)=>{
-
-  console.log(name);
-  console.log(alias);
-  console.log(email);
-  console.log(password);
-  console.log(department);
-  console.log(municipality);
-  console.log(address);
-  console.log(phone);
-  console.log(photo);
-
-
   formData.append("name", name)
   formData.append("alias", alias)
   formData.append("email", email)
@@ -45,6 +40,61 @@ const HandleSubmit= async (e)=>{
     console.log(err);
   }))
   e.preventDefault()
+}
+const handleCharacterEmail =()=>{
+    let validationEmail =/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+    let parrafo
+    if(email.match(validationEmail)){
+      parrafo="Información valida"
+      setMsgEmail(parrafo)
+    }else{
+      parrafo="Información incorrecta, por favor verifiquela"
+      setMsgEmail(parrafo)
+    }
+}
+const handleCharacterName=()=>{
+  let validationName= /^[A-Za-z]{3,16}$/
+  let parrafo
+  if(name.match(validationName)){
+    parrafo="Información correcta"
+    setMsgName(parrafo)
+  }else{
+    parrafo="Información incorrecta, Solo puedes añadir letras, minimo 3 letras maximo 16 letras"
+    setMsgName(parrafo)
+  }
+}
+const handleCharacterAlias=()=>{
+  let validationAlias= /^[A-Za-z]{3,10}$/
+  let parrafo
+  if(alias.match(validationAlias)){
+    parrafo="Información correcta"
+    setMsgAlias(parrafo)
+  }else{
+    parrafo="Información incorrecta, Solo puedes añadir letras, minimo 3 letras maximo 10 letras"
+    setMsgAlias(parrafo)
+  }
+}
+const handleCharacterPassword=()=>{
+  let validationPassword= /^[a-z0-9_-]{6,18}$/
+  let parrafo
+  if(password.match(validationPassword)){
+    parrafo="Información correcta"
+    setMsgPassword(parrafo)
+  }else{
+    parrafo="Información incorrecta, desbes añadir letras y numeros, su contraseña debe ser minimo de 7 letras,maximo 10 letras"
+    setMsgPassword(parrafo)
+  }
+}
+const handleCharacterPhone=()=>{
+  let validationPhone= /^[0-9]{7,12}$/
+  let parrafo
+  if(phone.match(validationPhone)){
+    parrafo="Información correcta"
+    setMsgPhone(parrafo)
+  }else{
+    parrafo="Información incorrecta, desbes añadir solo numeros, su numero de telefono debe ser minimo de 7 numeros, maximo 10 numeros"
+    setMsgPhone(parrafo)
+  }
 }
 
 const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json'
@@ -66,10 +116,15 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
       <p>RECORD USERS</p>
       <div className='files'>
         <div className='filesOne'>  
-          <input type="name" name='name' value={name} onChange={(e) => setName(e.target.value)} placeholder='enter your name'></input>
-          <input type="alias" name='alias' value={alias} onChange={(e) => setAlias(e.target.value)} placeholder='enter your alias' ></input>
-          <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email'></input>
-          <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='enter your password'></input>
+          
+          <input type="name" name='name' value={name} onChange={(e) => setName(e.target.value)} placeholder='enter your name' onKeyUp={handleCharacterName}></input>
+          <p className='alertIcorrect'>{msgName}</p>
+          <input type="alias" name='alias' value={alias} onChange={(e) => setAlias(e.target.value)} placeholder='enter your alias' onKeyUp={handleCharacterAlias} ></input>
+          <p className='alertIcorrect'>{msgAlias}</p>
+          <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email' onKeyUp={handleCharacterEmail} ></input>
+          <p className='alertIcorrect'>{msgEmail}</p>
+          <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='enter your password' onKeyUp={handleCharacterPassword}></input>
+          <p className='alertIcorrect'>{msgPassword}</p>
         </div>
         <div className='filesTwo'>
           <select className='selectDepart' type="department" name='department' value={department} onChange={(e) => setDepartment(e.target.value)} placeholder='enter your departament'>
@@ -86,13 +141,14 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
                   })}
           </select>
           <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address'></input>
-          <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone'></input>
+          <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone' onKeyUp={handleCharacterPhone}></input>
+          <p className='alertIcorrect'>{msgPhone}</p>
           <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture'></input> 
         </div>
       </div>
       <label><input type="checkbox" name='terminos' id='terminos' text='hola'></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
 
-       <button type="submit">Registrarse</button>
+       <button type="submit" >Registrarse</button>
     </form>
   )
 }
