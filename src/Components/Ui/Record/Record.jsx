@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import axios from 'axios';
 import './Record.css'
 
@@ -46,8 +46,20 @@ const HandleSubmit= async (e)=>{
   }))
   e.preventDefault()
 }
-//VALIDACIÓN DE CARACTERES
-  //const [terminos , cambiarTerminos]=useState(false);
+
+const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json'
+  const [Depart , setDepart] = useState()
+  const fetchApi = async () => {
+    const responde = await fetch(url)
+    const responseDepart = await responde.json()
+    setDepart(responseDepart)
+  }
+  useEffect(() => {
+    fetchApi()})
+//VALIDACIÓN DE CARACTERES Y CHECK
+   //const [terminos , cambiarTerminos]=useState(false);
+
+  
 
   return (
     <form onSubmit={HandleSubmit} className="record" >
@@ -60,15 +72,28 @@ const HandleSubmit= async (e)=>{
           <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='enter your password'></input>
         </div>
         <div className='filesTwo'>
-        <input type="department" name='department' value={department} onChange={(e) => setDepartment(e.target.value)} placeholder='enter your departament'></input>
-          <input type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'></input>
+          <select className='selectDepart' type="department" name='department' value={department} onChange={(e) => setDepartment(e.target.value)} placeholder='enter your departament'>
+                { !Depart ? 'Cargando...'  :
+                    Depart.map((Depart,index) => {
+                      return <option key={index} value={Depart.departamento}>{Depart.departamento} </option>
+                    })
+                  }        
+          </select>
+          <select  className='selectMuni' type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'>
+                { !Depart ? 'Cargando...' :
+                  Depart.map((Depart,index) => {
+                    return <option key={index} value={Depart.ciudades}>{Depart.ciudades} </option>
+                  })}
+          </select>
           <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address'></input>
           <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone'></input>
           <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture'></input> 
         </div>
       </div>
-      {/* <input type="checkbox" name='terminos' id='terminos' >Acepto los terminos y condiciones</input> */}
-       <button type="submit">Apply</button>
+      <label><input type="checkbox" name='terminos' id='terminos' text='hola'></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
+
+       <button type="submit">Registrarse</button>
     </form>
   )
 }
+
