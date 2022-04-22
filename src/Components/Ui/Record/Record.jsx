@@ -108,14 +108,19 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
     fetchApi()})
 //VALIDACIÓN DE CARACTERES Y CHECK
    const [terminos , cambiarTerminos]=useState(false);
- 
+   const [msgCheck , setMsgCheck] =useState();
    const handleTerminos=(e)=>{
      cambiarTerminos(e.target.checked)
+     let parrafo
      if(terminos == false){
        console.log("Registro completo");
+       parrafo="Registro completo"
+       setMsgCheck(parrafo)
      }
      else{
        console.log("Debes aceptar los termino y condiciones para  lpoder registrate");
+       parrafo="Debes aceptar los termino y condiciones para  lpoder registrate"
+       setMsgCheck(parrafo)
        
      }
    }
@@ -157,7 +162,7 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
         </div>
       </div>
       <label><input type="checkbox" name='terminos' id='terminos' checked={terminos} onClick={handleTerminos}></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
-
+      <p className='alertIcorrect'>{msgCheck}</p>
        <button type="submit" >Registrarse</button>
     </form>
   )
