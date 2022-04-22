@@ -107,8 +107,18 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
   useEffect(() => {
     fetchApi()})
 //VALIDACIÓN DE CARACTERES Y CHECK
-   //const [terminos , cambiarTerminos]=useState(false);
-
+   const [terminos , cambiarTerminos]=useState(false);
+ 
+   const handleTerminos=(e)=>{
+     cambiarTerminos(e.target.checked)
+     if(terminos == false){
+       console.log("Registro completo");
+     }
+     else{
+       console.log("Debes aceptar los termino y condiciones para  lpoder registrate");
+       
+     }
+   }
   
 
   return (
@@ -146,7 +156,7 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
           <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture'></input> 
         </div>
       </div>
-      <label><input type="checkbox" name='terminos' id='terminos' text='hola'></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
+      <label><input type="checkbox" name='terminos' id='terminos' checked={terminos} onClick={handleTerminos}></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
 
        <button type="submit" >Registrarse</button>
     </form>
