@@ -20,97 +20,90 @@ export const Record=()=> {
   const[msgPassword, setMsgPassword]=useState("")
   const[msgPhone, setMsgPhone]=useState("")
 
+  //State Check
+  const [terminos, cambiarTerminos] = useState(false);
+  const [msgCheck, setMsgCheck] = useState();
+
   var formData = new FormData();
 
-const HandleSubmit= async (e)=>{
-  formData.append("name", name)
-  formData.append("alias", alias)
-  formData.append("email", email)
-  formData.append("password", password)
-  formData.append("department", department)
-  formData.append("municipality", municipality)
-  formData.append("address", address)
-  formData.append("phone", phone)
-  formData.append("photo", photo)  
-  
-  console.log(formData);
-  axios.post('https://backend-fullmarket-py.herokuapp.com/createuser', formData).then((res => {
-    console.log(res);
-  })).catch((err => {
-    console.log(err);
-  }))
-  e.preventDefault()
-}
-const handleCharacterEmail =()=>{
-    let validationEmail =/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+  const HandleSubmit= async (e)=>{
+    formData.append("name", name)
+    formData.append("alias", alias)
+    formData.append("email", email)
+    formData.append("password", password)
+    formData.append("department", department)
+    formData.append("municipality", municipality)
+    formData.append("address", address)
+    formData.append("phone", phone)
+    formData.append("photo", photo)  
+    
+    console.log(formData);
+    axios.post('https://backend-fullmarket-py.herokuapp.com/createuser', formData).then((res => {
+      console.log(res);
+    })).catch((err => {
+      console.log(err);
+    }))
+    e.preventDefault()
+  }
+  const handleCharacterEmail =()=>{
+      let validationEmail =/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+      let parrafo
+      if(email.match(validationEmail)){
+        parrafo="Información valida"
+        setMsgEmail(parrafo)
+      }else{
+        parrafo="Información incorrecta, por favor verifiquela"
+        setMsgEmail(parrafo)
+      }
+  }
+  const handleCharacterName=()=>{
+    let validationName= /^[A-Za-z]{3,16}$/
     let parrafo
-    if(email.match(validationEmail)){
-      parrafo="Información valida"
-      setMsgEmail(parrafo)
+    if(name.match(validationName)){
+      parrafo="Información correcta"
+      setMsgName(parrafo)
     }else{
-      parrafo="Información incorrecta, por favor verifiquela"
-      setMsgEmail(parrafo)
+      parrafo="Información incorrecta, Solo puedes añadir letras, minimo 3 letras maximo 16 letras"
+      setMsgName(parrafo)
     }
-}
-const handleCharacterName=()=>{
-  let validationName= /^[A-Za-z]{3,16}$/
-  let parrafo
-  if(name.match(validationName)){
-    parrafo="Información correcta"
-    setMsgName(parrafo)
-  }else{
-    parrafo="Información incorrecta, Solo puedes añadir letras, minimo 3 letras maximo 16 letras"
-    setMsgName(parrafo)
   }
-}
-const handleCharacterAlias=()=>{
-  let validationAlias= /^[A-Za-z0-9]{3,10}$/
-  let parrafo
-  if(alias.match(validationAlias)){
-    parrafo="Información correcta"
-    setMsgAlias(parrafo)
-  }else{
-    parrafo="Información incorrecta, Solo puedes añadir letras, minimo 3 letras maximo 10 letras"
-    setMsgAlias(parrafo)
+  const handleCharacterAlias=()=>{
+    let validationAlias= /^[A-Za-z0-9]{3,10}$/
+    let parrafo
+    if(alias.match(validationAlias)){
+      parrafo="Información correcta"
+      setMsgAlias(parrafo)
+    }else{
+      parrafo="Información incorrecta, Solo puedes añadir letras, minimo 3 letras maximo 10 letras"
+      setMsgAlias(parrafo)
+    }
   }
-}
-const handleCharacterPassword=()=>{
-  let validationPassword= /^[a-z0-9_-]{6,18}$/
-  let parrafo
-  if(password.match(validationPassword)){
-    parrafo="Información correcta"
-    setMsgPassword(parrafo)
-     
-  }else{
-    parrafo ="Información incorrecta, desbes añadir letras y numeros, su contraseña debe ser minimo de 7 letras y/o numeros,maximo 10 letras  y/o numeros"
-    setMsgPassword(parrafo)
+  const handleCharacterPassword=()=>{
+    let validationPassword= /^[a-z0-9_-]{6,18}$/
+    let parrafo
+    if(password.match(validationPassword)){
+      parrafo="Información correcta"
+      setMsgPassword(parrafo)
+      
+    }else{
+      parrafo ="Información incorrecta, desbes añadir letras y numeros, su contraseña debe ser minimo de 7 letras y/o numeros,maximo 10 letras  y/o numeros"
+      setMsgPassword(parrafo)
+    }
   }
-}
-const handleCharacterPhone=()=>{
-  let validationPhone= /^[0-9]{7,12}$/
-  let parrafo
-  if(phone.match(validationPhone)){
-    parrafo="Información correcta"
-    setMsgPhone(parrafo)
-  }else{
-    parrafo="Información incorrecta, desbes añadir solo numeros, su numero de telefono debe ser minimo de 7 numeros, maximo 10 numeros"
-    setMsgPhone(parrafo)
+  const handleCharacterPhone=()=>{
+    let validationPhone= /^[0-9]{7,12}$/
+    let parrafo
+    if(phone.match(validationPhone)){
+      parrafo="Información correcta"
+      setMsgPhone(parrafo)
+    }else{
+      parrafo="Información incorrecta, desbes añadir solo numeros, su numero de telefono debe ser minimo de 7 numeros, maximo 10 numeros"
+      setMsgPhone(parrafo)
+    }
   }
-}
 
-const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json'
-  const [Depart , setDepart] = useState()
-  const fetchApi = async () => {
-    const responde = await fetch(url)
-    const responseDepart = await responde.json()
-    setDepart(responseDepart)
-  }
-  useEffect(() => {
-    fetchApi()})
-//VALIDACIÓN DE CARACTERES Y CHECK
-   const [terminos , cambiarTerminos]=useState(false);
-   const [msgCheck , setMsgCheck] =useState();
 
+//VALIDACIÓN DE CHECK
    const handleTerminos=(e)=>{
      cambiarTerminos(e.target.checked)
      let parrafo
@@ -126,7 +119,19 @@ const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/co
      }
    }
 
+//Clasificador de municipios por departemento 
+  const [Depart, setDepart] = useState()
+
+  const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json'
   
+  const fetchApi = async () => {
+    const responde = await fetch(url)
+    const responseDepart = await responde.json()
+    setDepart(responseDepart)
+  }
+  useEffect(() => {
+    fetchApi()
+  })
 
   return (
     <form onSubmit={HandleSubmit} className="record" >
