@@ -121,11 +121,9 @@ export const Record=()=> {
 
 //Clasificador de municipios por departemento 
 const [Depart, setDepart] = useState()
-const [City, setCity] = useState()
 
 // Apis que retornan datos departamentales y municipales
-const url = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json'
-const ur = 'https://www.datos.gov.co/resource/xdk5-pm3f.json'
+const url = 'https://raw.githubusercontent.com/Ex1Kx/Colombia.json/main/cities.json'
 
 //Respuesta y declaracion de APIS
 const fetchApi = async () => {
@@ -136,15 +134,6 @@ const fetchApi = async () => {
 useEffect(() => {
   fetchApi()
 })
-const secondFetch = async () => {
-  const responsecity = await fetch(ur)
-  const responseCity = await responsecity.json()
-  setCity(responseCity)
-}
-useEffect(() => {
-  secondFetch()
-})
-
 
 return (
   <form onSubmit={HandleSubmit} className="record" >
@@ -164,14 +153,14 @@ return (
         <select className='selectDepart' type="department" name='department' value={department} onChange={(e) => setDepartment(e.target.value)} placeholder='enter your departament'>
               { !Depart ? 'Cargando...'  :
                   Depart.map((Depart,index) => {
-                    return <option key={index} value={Depart.departamento}>{Depart.departamento} </option>
+                    return <option key={index} value={Depart.departament}>{Depart.departament} </option>
                   })
                 }         
         </select>
         <select  className='selectMuni' type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'>
-              { !City ? 'Cargando...' :
-                City.map((City,index) => {
-                  return <option key={index} value={City.municipio}> {City.municipio} </option>
+              { !Depart ? 'Cargando...' :
+                Depart.map((Depart,index) => {
+                  return <option key={index} value={Depart.city}> {Depart.city} </option>
                 })}
         </select>
         <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address' required></input>
