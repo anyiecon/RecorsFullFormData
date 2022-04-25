@@ -8,6 +8,7 @@ export const NavbarRecord=() =>{
     <div className='navbarRecord'>
         <img className="logo" src={logo} ></img>
         <img className='logotypeFMarket' src={logotypeFMarket} ></img>
+
     </div>
   )
 }

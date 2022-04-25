@@ -1,17 +1,49 @@
-.recorRe{
+ .recorRe{
     display: grid;
-    grid-template-rows: 6% 70% 5%; 
+    grid-template-rows: 7% 85% 8%; 
+    /* width: 100%;
+    height: 55%;  */
 
-} 
-.recordText,.recordTexts{
+}  
+.recorRe{
+    width: 100%;
+    /* margin-top: 8px; */
+}
+.recordText{
     color: white;
     text-align: center;
     background-color: black;
+    font-size: 8px;
+}
+.recordTexts{
+    color: white;
+    text-align: center;
+    background-color: black;
+    font-size: 12px; 
 }
 .imgRecord{
-    width: 100%;
-    height: 100%;
+    width: 50%; 
 }
-/*.textRecor{
-    margin-top: 4px;
-}*/
+.textRecor{
+    margin-top: 6px;
+}
+.textRecord{
+    margin-top: 18px;
+}
+@media screen and (min-width: 2560px) {
+    .imgRecord{
+        width: 100%;
+        height: 100%;
+    }
+    .recorRe{
+        display: grid;
+        grid-template-rows: 10% 80% 10%; 
+    
+    } 
+    .recordText,.recordTexts{
+        color: white;
+        text-align: center;
+        background-color: black;
+    }
+}
+

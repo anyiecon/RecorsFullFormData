@@ -121,9 +121,11 @@ export const Record=()=> {
 
 //Clasificador de municipios por departemento 
 const [Depart, setDepart] = useState()
+const [City, setCity] = useState()
 
 // Apis que retornan datos departamentales y municipales
-const url = 'https://raw.githubusercontent.com/Ex1Kx/Colombia.json/main/cities.json'
+const url = 'https://colombia-2272c-default-rtdb.firebaseio.com/departaments.json'
+const ur = 'https://colombia-2272c-default-rtdb.firebaseio.com/cities.json'
 
 //Respuesta y declaracion de APIS
 const fetchApi = async () => {
@@ -134,44 +136,64 @@ const fetchApi = async () => {
 useEffect(() => {
   fetchApi()
 })
+const secondFetch = async () => {
+  const responsecity = await fetch(ur)
+  const responseCity = await responsecity.json()
+  setCity(responseCity)
+}
+useEffect(() => {
+  secondFetch()
+})
+
 
 return (
   <form onSubmit={HandleSubmit} className="record" >
-    <div className='files'>
-      <div className='filesOne'>  
-        
-        <input type="name" name='name' value={name} onChange={(e) => setName(e.target.value)} placeholder='enter your name' onKeyUp={handleCharacterName} required></input>
-        <p className='alertIcorrect'>{msgName}</p>
-        <input type="alias" name='alias' value={alias} onChange={(e) => setAlias(e.target.value)} placeholder='enter your alias' onKeyUp={handleCharacterAlias} required></input>
-        <p className='alertIcorrect'>{msgAlias}</p>
-        <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email' onKeyUp={handleCharacterEmail} required></input>
-        <p className='alertIcorrect'>{msgEmail}</p>
-        <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='enter your password' onKeyUp={handleCharacterPassword} required></input>
-        <p className='alertIcorrect'>{msgPassword}</p>
-      </div>
-      <div className='filesTwo'>
+    <div className='completeRecord'>
+    <h1 className='prom'>REGISTRATE AQUÍ</h1>
+      <div className='files'>
+        <div className='filesOne'>  
+
+          <input type="name" name='name' value={name} onChange={(e) => setName(e.target.value)} placeholder='enter your name' onKeyUp={handleCharacterName} required></input>
+          <p className='alertIcorrect'>{msgName}</p>
+          <input type="alias" name='alias' value={alias} onChange={(e) => setAlias(e.target.value)} placeholder='enter your alias' onKeyUp={handleCharacterAlias} required></input>
+          <p className='alertIcorrect'>{msgAlias}</p>
+          <input type="email" name='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='enter your email' onKeyUp={handleCharacterEmail} required></input>
+          <p className='alertIcorrect'>{msgEmail}</p>
+          <input type="password" name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='enter your password' onKeyUp={handleCharacterPassword} required></input>
+          <p className='alertIcorrect'>{msgPassword}</p>
+        </div>
+        <div className='filesTwo'>
         <select className='selectDepart' type="department" name='department' value={department} onChange={(e) => setDepartment(e.target.value)} placeholder='enter your departament'>
-              { !Depart ? 'Cargando...'  :
-                  Depart.map((Depart,index) => {
-                    return <option key={index} value={Depart.departament}>{Depart.departament} </option>
-                  })
-                }         
-        </select>
-        <select  className='selectMuni' type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'>
-              { !Depart ? 'Cargando...' :
-                Depart.map((Depart,index) => {
-                  return <option key={index} value={Depart.city}> {Depart.city} </option>
-                })}
-        </select>
-        <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address' required></input>
-        <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone' onKeyUp={handleCharacterPhone} required></input>
-        <p className='alertIcorrect'>{msgPhone}</p>
-        <input type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture' required></input> 
+                  { !Depart ? 'Cargando...'  :
+                      Depart.map((Depart,index) => {
+                        return <option key={index} value={Depart.departamento}>{Depart.departamento} </option>
+                      })
+                    }         
+            </select>
+            <select  className='selectMuni' type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'>
+                  { !City ? 'Cargando...' :
+                    City.map((City,index) => {
+                      return <option key={index} value={City.city}> {City.city} </option>
+                    })}
+            </select>
+          <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address' required></input>
+          <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone' onKeyUp={handleCharacterPhone} required></input>
+          <p className='alertIcorrect'>{msgPhone}</p> 
+          <div className='photos'>
+            <input className='photo' type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture' required></input>
+          </div>
+        </div>
       </div>
+                  
+      <div className='terminosAcep'>
+        <label className='terminoss'><input type="checkbox" name='terminos' className='terminosone' id='terminos' checked={terminos} onClick={handleTerminos} ></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica <br></br>de datos y la politica de cookies.</label> 
+        <p className='alertIcorrects'>{msgCheck}</p>
+      </div>
+       <button type="submit" className='btnSubmirRecord' >Registrarse</button>
+       <div className="hr" />
+       <a href="foo">Ya tienes una cuenta</a>
     </div>
-    <label><input type="checkbox" name='terminos' id='terminos' checked={terminos} onClick={handleTerminos} ></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica de datos y la politica de cookies.</label> 
-    <p className='alertIcorrect'>{msgCheck}</p>
-     <button type="submit" >Registrarse</button>
+     
   </form>
 )
 }
