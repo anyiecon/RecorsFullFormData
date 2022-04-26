@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import './Record.css'
 
@@ -23,6 +23,10 @@ export const Record=()=> {
   //State Check
   const [terminos, cambiarTerminos] = useState(false);
   const [msgCheck, setMsgCheck] = useState();
+
+  //Muni
+  const [dpto, setDpto] = useState([]);
+  const [ciudades, setCiudades] = useState([]);
 
   var formData = new FormData();
 
@@ -119,31 +123,31 @@ export const Record=()=> {
      }
    }
 
-//Clasificador de municipios por departemento 
-const [Depart, setDepart] = useState()
-const [City, setCity] = useState()
+  let URLDepart = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.json'
 
-// Apis que retornan datos departamentales y municipales
-const url = 'https://colombia-2272c-default-rtdb.firebaseio.com/departaments.json'
-const ur = 'https://colombia-2272c-default-rtdb.firebaseio.com/cities.json'
+  let getDptos = () => {
+    axios.get(URLDepart).then(res => {
+      console.log(res.data);
+      setDpto(res.data)
+    })
+  }
 
-//Respuesta y declaracion de APIS
-const fetchApi = async () => {
-  const responde = await fetch(url)
-  const responseDepart = await responde.json()
-  setDepart(responseDepart)
-}
-useEffect(() => {
-  fetchApi()
-})
-const secondFetch = async () => {
-  const responsecity = await fetch(ur)
-  const responseCity = await responsecity.json()
-  setCity(responseCity)
-}
-useEffect(() => {
-  secondFetch()
-})
+  let getMuni = (e) => {
+    let docMuni = document.getElementById("select-municipios")
+
+    dpto.forEach(ele => {
+      if (ele.departamento === e.target.value) {
+        setCiudades(ele.ciudades);
+        console.log(ele.ciudades);
+        // docMuni.style.display = 'block'
+      }
+    })
+  }
+
+  useEffect(() => {
+    getDptos();
+  }, [])
+
 
 
 return (
@@ -163,19 +167,32 @@ return (
           <p className='alertIcorrect'>{msgPassword}</p>
         </div>
         <div className='filesTwo'>
-        <select className='selectDepart' type="department" name='department' value={department} onChange={(e) => setDepartment(e.target.value)} placeholder='enter your departament'>
-                  { !Depart ? 'Cargando...'  :
-                      Depart.map((Depart,index) => {
-                        return <option key={index} value={Depart.departamento}>{Depart.departamento} </option>
-                      })
-                    }         
-            </select>
-            <select  className='selectMuni' type="municipality" name='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)} placeholder='enter your municipality'>
-                  { !City ? 'Cargando...' :
-                    City.map((City,index) => {
-                      return <option key={index} value={City.city}> {City.city} </option>
-                    })}
-            </select>
+
+
+
+
+          <select className='selectDepart' onInput={getMuni} type="department" name='department' id="" value={department} onChange={(e) => setDepartment(e.target.value)} >
+            <option value="Select">Select a Department</option>
+            {
+              dpto.map(dep => (
+                <option key={dep.id} value={dep.departamento}>{dep.departamento}</option>
+              ))
+            }
+          </select>
+          <select className='selectMuni' id="select-municipios" type="municipality" name ='municipality' value={municipality} onChange={(e) => setMunicipality(e.target.value)}>
+            <option value="Select">Select a Municipality</option>
+            {
+              ciudades.map(ci => (
+                <option key={ci} value={ci}>{ci}</option>
+              ))
+            }
+          </select>
+            
+
+
+
+
+
           <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address' required></input>
           <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone' onKeyUp={handleCharacterPhone} required></input>
           <p className='alertIcorrect'>{msgPhone}</p> 
