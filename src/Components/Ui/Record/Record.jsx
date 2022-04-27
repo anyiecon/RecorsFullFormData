@@ -47,7 +47,7 @@ export const Record=()=> {
     })).catch((err => {
       console.log(err);
     }))
-    e.preventDefault()
+    alert("Te haz registrado con exito")
   }
   const handleCharacterEmail =()=>{
       let validationEmail =/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
@@ -61,7 +61,7 @@ export const Record=()=> {
       }
   }
   const handleCharacterName=()=>{
-    let validationName= /^[A-Za-z]{3,16}$/
+    let validationName= /^[a-zA-Z\t]+|(^$)/
     let parrafo
     if(name.match(validationName)){
       parrafo="Información correcta"
@@ -72,7 +72,7 @@ export const Record=()=> {
     }
   }
   const handleCharacterAlias=()=>{
-    let validationAlias= /^[A-Za-z0-9]{3,10}$/
+    let validationAlias= /^[A-Za-z0-9\t]{3,10}|(^$)/
     let parrafo
     if(alias.match(validationAlias)){
       parrafo="Información correcta"
@@ -203,7 +203,7 @@ return (
       </div>
                   
       <div className='terminosAcep'>
-        <label className='terminoss'><input type="checkbox" name='terminos' className='terminosone' id='terminos' checked={terminos} onClick={handleTerminos} ></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica <br></br>de datos y la politica de cookies.</label> 
+        <label className='terminoss'><input type="checkbox" name='terminos' className='terminosone' id='terminos' checked={terminos} onClick={handleTerminos} required='Debes aceptar nuestros terminos y condiciones para poder registrarte'></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica <br></br>de datos y la politica de cookies.</label> 
         <p className='alertIcorrects'>{msgCheck}</p>
       </div>
        <button type="submit" className='btnSubmirRecord' >Registrarse</button>

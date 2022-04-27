@@ -1,14 +1,13 @@
- .recorRe{
+.recorRe{
     display: grid;
     grid-template-rows: 7% 85% 8%; 
-    /* width: 100%;
-    height: 55%;  */
+   
 
 }  
 .recorRe{
     width: 100%;
-    /* margin-top: 8px; */
-}
+    
+} 
 .recordText{
     color: white;
     text-align: center;
@@ -19,10 +18,12 @@
     color: white;
     text-align: center;
     background-color: black;
-    font-size: 12px; 
-}
+    font-size: 14px; 
+} 
+
+
 .imgRecord{
-    width: 50%; 
+    width: 100%; 
 }
 .textRecor{
     margin-top: 6px;
@@ -44,6 +45,13 @@
         color: white;
         text-align: center;
         background-color: black;
+        font-size: 39px;
+    }
+}
+
+@media screen and (min-width: 780px){
+    .imgRecord{
+        height: 105%; 
     }
 }
 
