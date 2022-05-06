@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import './Record.css'
 
+
 export const Record=()=> {
   const [name, setName] = useState("");
   const [alias, setAlias] = useState("");
@@ -31,6 +32,7 @@ export const Record=()=> {
   var formData = new FormData();
 
   const HandleSubmit= async (e)=>{
+    e.preventDefault()
     formData.append("name", name)
     formData.append("alias", alias)
     formData.append("email", email)
@@ -47,7 +49,7 @@ export const Record=()=> {
     })).catch((err => {
       console.log(err);
     }))
-    alert("Te haz registrado con exito")
+    
   }
   const handleCharacterEmail =()=>{
       let validationEmail =/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
@@ -167,10 +169,6 @@ return (
           <p className='alertIcorrect'>{msgPassword}</p>
         </div>
         <div className='filesTwo'>
-
-
-
-
           <select className='selectDepart' onInput={getMuni} type="department" name='department' id="" value={department} onChange={(e) => setDepartment(e.target.value)} >
             <option value="Select">Select a Department</option>
             {
@@ -187,12 +185,6 @@ return (
               ))
             }
           </select>
-            
-
-
-
-
-
           <input type="address" name='address' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='enter your address' required></input>
           <input type="phone" name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='entert your phone' onKeyUp={handleCharacterPhone} required></input>
           <p className='alertIcorrect'>{msgPhone}</p> 
@@ -200,8 +192,7 @@ return (
             <input className='photo' type="file" name='photo' onChange={(e) => setPhoto(e.target.files[0])} placeholder='enter your profile picture' required></input>
           </div>
         </div>
-      </div>
-                  
+      </div>          
       <div className='terminosAcep'>
         <label className='terminoss'><input type="checkbox" name='terminos' className='terminosone' id='terminos' checked={terminos} onClick={handleTerminos} required='Debes aceptar nuestros terminos y condiciones para poder registrarte'></input>Al hacer click en "REGISTRARSE", Acepta Nuestras Condiciones, la politica <br></br>de datos y la politica de cookies.</label> 
         <p className='alertIcorrects'>{msgCheck}</p>
