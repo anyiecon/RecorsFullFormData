@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import './Record.css'
+import './Record.css';
+import { useNavigate } from 'react-router';
+import swal from 'sweetalert';
 
 
 export const Record=()=> {
@@ -13,23 +15,19 @@ export const Record=()=> {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [photo, setPhoto] = useState();
-
-  //State Character
   const[msgEmail, setMsgEmail]=useState("")
   const[msgName, setMsgName]=useState("")
   const[msgAlias, setMsgAlias]=useState("")
   const[msgPassword, setMsgPassword]=useState("")
   const[msgPhone, setMsgPhone]=useState("")
-
-  //State Check
   const [terminos, cambiarTerminos] = useState(false);
   const [msgCheck, setMsgCheck] = useState();
-
-  //Muni
   const [dpto, setDpto] = useState([]);
   const [ciudades, setCiudades] = useState([]);
-
+ 
   var formData = new FormData();
+
+  const navigate = useNavigate()
 
   const HandleSubmit= async (e)=>{
     e.preventDefault()
@@ -45,11 +43,21 @@ export const Record=()=> {
     
     console.log(formData);
     axios.post('https://backend-fullmarket-py.herokuapp.com/createuser', formData).then((res => {
-      console.log(res);
+     // console.log(res);
+      if(res){
+        navigate("/LayoutCards")
+         swal({
+            title: "hola mundo",
+            icon: "error"
+        })
+
+      }
     })).catch((err => {
       console.log(err);
+      if(err){
+      
+      }
     }))
-    
   }
   const handleCharacterEmail =()=>{
       let validationEmail =/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
@@ -114,7 +122,6 @@ export const Record=()=> {
      cambiarTerminos(e.target.checked)
      let parrafo
      if(terminos === false){
-       console.log("Registro completo");
        parrafo="Registro completo"
        setMsgCheck(parrafo)
      }
@@ -129,19 +136,15 @@ export const Record=()=> {
 
   let getDptos = () => {
     axios.get(URLDepart).then(res => {
-      console.log(res.data);
       setDpto(res.data)
     })
   }
 
   let getMuni = (e) => {
     let docMuni = document.getElementById("select-municipios")
-
     dpto.forEach(ele => {
       if (ele.departamento === e.target.value) {
         setCiudades(ele.ciudades);
-        console.log(ele.ciudades);
-        // docMuni.style.display = 'block'
       }
     })
   }
