@@ -43,19 +43,22 @@ export const Record=()=> {
     
     console.log(formData);
     axios.post('https://backend-fullmarket-py.herokuapp.com/createuser', formData).then((res => {
-     // console.log(res);
+     console.log(res);
       if(res){
         navigate("/LayoutCards")
          swal({
-            title: "hola mundo",
-            icon: "error"
+            title: "¡Bien hecho, ahora formas parte de FullMarket, bienvenido!",
+            icon: "success"
         })
 
       }
     })).catch((err => {
       console.log(err);
       if(err){
-      
+         swal({
+            title: "Tienes un error al registrarte, intentalo de nuevo",
+            icon: "error"
+        })
       }
     }))
   }
