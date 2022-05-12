@@ -4,7 +4,6 @@ import './Record.css';
 import { useNavigate } from 'react-router';
 import swal from 'sweetalert';
 
-
 export const Record=()=> {
   const [name, setName] = useState("");
   const [alias, setAlias] = useState("");
