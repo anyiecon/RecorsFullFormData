@@ -113,7 +113,7 @@ export const Record=()=> {
       parrafo="Información correcta"
       setMsgPhone(parrafo)
     }else{
-      parrafo="Información incorrecta, desbes añadir solo numeros, su numero de telefono debe ser minimo de 7 numeros, maximo 10 numeros"
+      parrafo="Información incorrecta, desbes añadir solo numeros, su numero de telefono debe ser minimo de 7 numeros, maximo 10 numeros ejem:3105145662"
       setMsgPhone(parrafo)
     }
   }
