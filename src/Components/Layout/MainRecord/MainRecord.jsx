@@ -9,6 +9,7 @@ export const MainRecord=() =>{
   return (
     <div className='mainRecord'>
       <div className='header'>
+      
         <HeaderRecord/>
       </div>
       <div className='record' >
